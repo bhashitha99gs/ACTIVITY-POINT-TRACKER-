@@ -1,27 +1,38 @@
+// server.js
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');
+const path = require('path');
 
 const app = express();
 app.use(cors());
-app.use(express.json()); 
-app.use(express.static('frontend')); 
+app.use(express.json());
+app.use(express.static('frontend')); // serve frontend files
 
-
+// MySQL connection pool (cloud database)
 const db = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'bhashithags@990122', 
-  database: 'bmsce_activity_tracker'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT
 });
 
+// ----------------- ROUTES -----------------
 
+// Verify club password
 app.post('/verify-club-password', async (req, res) => {
   try {
     const { club, password } = req.body;
-    if (!club || !password) return res.status(400).json({ success: false, message: 'Missing club or password' });
+    if (!club || !password)
+      return res.status(400).json({ success: false, message: 'Missing club or password' });
 
-    const [rows] = await db.query('SELECT * FROM clubs WHERE name = ? AND password = ?', [club, password]);
+    const [rows] = await db.query(
+      'SELECT * FROM clubs WHERE name = ? AND password = ?',
+      [club, password]
+    );
+
     if (rows.length > 0) res.json({ success: true });
     else res.status(401).json({ success: false, message: 'Incorrect password' });
   } catch (err) {
@@ -30,7 +41,7 @@ app.post('/verify-club-password', async (req, res) => {
   }
 });
 
-
+// Add activity and update student points
 app.post('/add-activity', async (req, res) => {
   try {
     const { club, activity, date, points, emails } = req.body;
@@ -60,8 +71,8 @@ app.post('/add-activity', async (req, res) => {
   }
 });
 
-
-app.post("/verify-student", async (req, res) => {
+// Verify student email
+app.post('/verify-student', async (req, res) => {
   try {
     const { email } = req.body;
     if (!email) return res.status(400).json({ success: false, message: "Email is required" });
@@ -76,7 +87,7 @@ app.post("/verify-student", async (req, res) => {
   }
 });
 
-
+// Get all activities of a student
 app.get('/activities/:studentId', async (req, res) => {
   try {
     const { studentId } = req.params;
@@ -87,15 +98,14 @@ app.get('/activities/:studentId', async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 });
-const path = require("path");
 
+// Serve frontend index
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
-
-
-const PORT = 5000;
+// ----------------- START SERVER -----------------
+const PORT = process.env.SERVER_PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
