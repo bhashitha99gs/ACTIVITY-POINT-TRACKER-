@@ -1,0 +1,20 @@
+ACTIVITYPOINTTRACKER
+│
+├── package.json
+├── package-lock.json
+├── server.js          ✅ Node.js backend
+├── node_modules/      
+├── frontend/          ✅ frontend folder
+│   ├── index.html
+│   ├── style.css
+│   ├── club_login.html
+│   ├── club_login.css
+│   ├── core.html
+│   ├── core.css
+│   ├── main1.html
+│   ├── main1.css
+│   ├── student_login.html
+│   ├── student_login.css
+│   ├── stucore.html
+│   ├── stucore.css
+│   └── BMS_College_of_Engineering.svg
