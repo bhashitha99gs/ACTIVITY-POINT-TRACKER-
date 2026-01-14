@@ -18,37 +18,38 @@
     <button onclick="checkPassword()">Login</button>
     <p id="error" class="error"></p>
   </div>
+
   <script>
-  const params = new URLSearchParams(window.location.search);
-  const club = params.get('club');
-  document.getElementById('clubName').textContent = club ? club + " Club" : "Unknown Club";
+    const params = new URLSearchParams(window.location.search);
+    const club = params.get('club');
+    document.getElementById('clubName').textContent = club ? club + " Club" : "Unknown Club";
 
-  async function checkPassword() {
-    const entered = document.getElementById("password").value.trim();
-    if (!entered) return document.getElementById("error").textContent = "Enter password!";
-
-    try {
-      const res = await fetch('/verify-club-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ club, password: entered })
-      });
-
-      const data = await res.json();
-
-      if (res.ok && data.success) {
-        window.location.href = `main1.html?club=${encodeURIComponent(club)}`;
-      } else {
-        document.getElementById("error").textContent = data.message || "Invalid password!";
+    async function checkPassword() {
+      const entered = document.getElementById("password").value.trim();
+      if (!entered) {
+        document.getElementById("error").textContent = "Enter password!";
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      document.getElementById("error").textContent = "Server error!";
-    }
-  }
-</script>
 
- 
-  
+      try {
+        const res = await fetch('https://activity-point-tracker-l681.onrender.com/verify-club-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ club, password: entered })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          window.location.href = `main1.html?club=${encodeURIComponent(club)}`;
+        } else {
+          document.getElementById("error").textContent = data.message || "Invalid password!";
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById("error").textContent = "Server error!";
+      }
+    }
+  </script>
 </body>
 </html>

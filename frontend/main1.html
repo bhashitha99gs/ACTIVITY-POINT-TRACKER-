@@ -10,7 +10,6 @@
  
   <div class="top-section" id="clubTitle">ACM Club</div>
 
-  
   <div class="bottom-section">
     <div class="form-container">
       <h2>Enter Club Activity Details</h2>
@@ -36,7 +35,6 @@
   </div>
 
   <script>
-   
     const params = new URLSearchParams(window.location.search);
     const club = params.get("club");
 
@@ -46,7 +44,6 @@
       document.getElementById("clubName").readOnly = true;
     }
 
-    // Form submission
     document.getElementById("clubForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -54,17 +51,17 @@
       const date = document.getElementById("date").value.trim();
       const points = parseInt(document.getElementById("points").value);
       const emails = document.getElementById("emails").value
-                     .trim()
-                     .split("\n")
-                     .map(e => e.trim())
-                     .filter(Boolean);
+        .trim()
+        .split("\n")
+        .map(e => e.trim())
+        .filter(Boolean);
 
       if (!activity || !date || !points || emails.length === 0) {
         return alert("Please fill all fields correctly!");
       }
 
       try {
-        const res = await fetch("/add-activity", {
+        const res = await fetch("https://activity-point-tracker-l681.onrender.com/add-activity", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ club, activity, date, points, emails })
@@ -74,7 +71,7 @@
         if (res.ok && data.success) {
           alert("Activity successfully added!");
           document.getElementById("clubForm").reset();
-          document.getElementById("clubName").value = club; // keep club name
+          document.getElementById("clubName").value = club;
         } else {
           alert(data.message || "Error adding activity!");
         }

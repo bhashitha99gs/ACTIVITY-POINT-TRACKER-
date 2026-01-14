@@ -31,6 +31,8 @@
   </div>
 
   <script>
+    const API = "https://activity-point-tracker-l681.onrender.com";
+
     document.getElementById("loginForm").addEventListener("submit", async function (e) {
       e.preventDefault();
       const email = document.getElementById("email").value.trim();
@@ -42,8 +44,7 @@
       }
 
       try {
-        // Call backend to verify student
-        const res = await fetch("/verify-student", {
+        const res = await fetch(`${API}/verify-student`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email })
@@ -52,7 +53,6 @@
         const data = await res.json();
 
         if (res.ok && data.success) {
-          // Save email and redirect
           localStorage.setItem("studentEmail", email);
           window.location.href = "stucore.html";
         } else {
@@ -67,4 +67,3 @@
   </script>
 </body>
 </html>
-

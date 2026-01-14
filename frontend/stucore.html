@@ -28,13 +28,13 @@
           <th>Activity Points</th>
         </tr>
       </thead>
-      <tbody id="activity-body">
-        <!-- Filled dynamically -->
-      </tbody>
+      <tbody id="activity-body"></tbody>
     </table>
   </div>
 
   <script>
+    const API = "https://activity-point-tracker-l681.onrender.com";
+
     async function loadStudentData() {
       const email = localStorage.getItem("studentEmail");
       if (!email) {
@@ -45,7 +45,7 @@
 
       try {
         // Verify student
-        const resStudent = await fetch("/verify-student", {
+        const resStudent = await fetch(`${API}/verify-student`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email })
@@ -60,9 +60,8 @@
         document.getElementById("studentEmail").textContent = student.email;
 
         // Fetch activities
-        const resActivities = await fetch(`/activities/${student.id}`);
+        const resActivities = await fetch(`${API}/activities/${student.id}`);
         const dataActivities = await resActivities.json();
-
         if (!resActivities.ok) throw new Error(dataActivities.message);
 
         const tbody = document.getElementById("activity-body");
