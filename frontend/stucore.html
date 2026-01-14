@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Core - BMSCE</title>
+  <link rel="stylesheet" href="stucore.css">
+</head>
+<body>
+
+  <div class="student-info">
+    <div class="details">
+      <p><strong>Name:</strong> <span id="studentName">Loading...</span></p>
+      <p><strong>USN:</strong> <span id="studentUSN">Loading...</span></p>
+      <p><strong>Email-ID:</strong> <span id="studentEmail">Loading...</span></p>
+      <p><strong>Your Score:</strong> <span id="studentScore">0</span></p>
+    </div>
+  </div>
+
+  <div class="activity-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Sl. No</th>
+          <th>Name of Club</th>
+          <th>Programme</th>
+          <th>Date</th>
+          <th>Activity Points</th>
+        </tr>
+      </thead>
+      <tbody id="activity-body">
+        <!-- Filled dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    async function loadStudentData() {
+      const email = localStorage.getItem("studentEmail");
+      if (!email) {
+        alert("No student email found. Please login again.");
+        window.location.href = "student_login.html";
+        return;
+      }
+
+      try {
+        // Verify student
+        const resStudent = await fetch("/verify-student", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        const dataStudent = await resStudent.json();
+        if (!resStudent.ok) throw new Error(dataStudent.message);
+
+        const student = dataStudent.student;
+        document.getElementById("studentName").textContent = student.name;
+        document.getElementById("studentUSN").textContent = student.usn;
+        document.getElementById("studentEmail").textContent = student.email;
+
+        // Fetch activities
+        const resActivities = await fetch(`/activities/${student.id}`);
+        const dataActivities = await resActivities.json();
+
+        if (!resActivities.ok) throw new Error(dataActivities.message);
+
+        const tbody = document.getElementById("activity-body");
+        tbody.innerHTML = "";
+
+        let totalPoints = 0;
+        dataActivities.forEach((act, index) => {
+          totalPoints += act.points;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${act.club}</td>
+            <td>${act.activity_name}</td>
+            <td>${act.date}</td>
+            <td>${act.points}</td>
+          `;
+          tbody.appendChild(row);
+        });
+
+        document.getElementById("studentScore").textContent = totalPoints;
+
+      } catch (err) {
+        console.error(err);
+        alert("Error loading student data: " + err.message);
+      }
+    }
+
+    loadStudentData();
+  </script>
+
+</body>
+</html>

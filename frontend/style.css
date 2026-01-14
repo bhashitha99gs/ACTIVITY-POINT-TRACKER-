@@ -1,0 +1,77 @@
+
+:root {
+  --blue-color: #004799;
+}
+
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #000; /* plain dark background */
+  color: #fff;
+}
+
+/* ---------- Header ---------- */
+.top-header {
+  width: 100%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo-circle img {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+  border: none; /* no circle border */
+}
+
+.top-header h1 {
+  color: var(--blue-color);
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+/* ---------- Transparent Box ---------- */
+.content-box {
+  background: rgba(0, 0, 0, 0.6);
+  width: 90%;
+  max-width: 750px;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+  padding: 60px 40px;
+  text-align: center;
+  margin-top: 60px;
+}
+
+h2 { font-size: 1.8rem; margin-bottom: 20px; }
+p  { font-size: 1.05rem; line-height: 1.6; margin-bottom: 40px; color: #e0e0e0; }
+
+/* ---------- Buttons ---------- */
+.buttons { display: flex; flex-direction: column; gap: 25px; }
+
+.btn {
+  cursor: pointer;
+  width: 230px;
+  margin: 0 auto;
+  background: var(--blue-color);
+  color: #fff;
+  border-radius: 10px;
+  padding: 14px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.btn:hover { background: #003673; transform: translateY(-3px); }

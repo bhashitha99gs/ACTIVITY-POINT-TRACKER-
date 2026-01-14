@@ -1,0 +1,71 @@
+:root { --blue: #004799; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: rgba(0, 0, 0, 0.85);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.top-header {
+  width: 100%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.top-header img { width: 80px; height: 80px; object-fit: contain; }
+.top-header h1 { color: var(--blue); font-size: 1.8rem; font-weight: 700; }
+
+/* Centered blue box */
+.overlay {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-box {
+  background: var(--blue);
+  color: #fff;
+  text-align: center;
+  width: 520px;
+  padding: 3rem 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  animation: fadeIn 0.8s ease;
+}
+.login-box h2 { margin-bottom: 1.5rem; font-size: 1.9rem; }
+
+/* Form elements */
+input, button {
+  width: 92%;
+  padding: 12px;
+  margin: 15px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+}
+input { color: #333; }
+button {
+  background: #fff;
+  color: var(--blue);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover { background: #e0e0e0; transform: translateY(-2px); }
+
+.error-msg { color: #ffb3b3; font-size: 14px; margin-top: 10px; }
+
+@keyframes fadeIn {
+
+  to { opacity: 1; transform: translateY(0); }
+}

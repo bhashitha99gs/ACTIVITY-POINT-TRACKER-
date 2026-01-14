@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Login - BMSCE</title>
+  <link rel="stylesheet" href="student_login.css" />
+</head>
+<body>
+  <header class="top-header">
+    <div class="logo">
+      <img src="BMS_College_of_Engineering.svg" alt="BMSCE Logo" />
+    </div>
+    <h1>B.M.S. College of Engineering</h1>
+  </header>
+
+  <div class="overlay">
+    <div class="login-box">
+      <h2>Student Login</h2>
+      <form id="loginForm">
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your BMSCE email (e.g. abc@bmsce.ac.in)"
+          required
+        />
+        <button type="submit">Login</button>
+        <p id="error" class="error-msg"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const error = document.getElementById("error");
+
+      if (!email.endsWith("@bmsce.ac.in")) {
+        error.textContent = "Please use your @bmsce.ac.in address.";
+        return;
+      }
+
+      try {
+        // Call backend to verify student
+        const res = await fetch("/verify-student", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          // Save email and redirect
+          localStorage.setItem("studentEmail", email);
+          window.location.href = "stucore.html";
+        } else {
+          error.textContent = data.message || "Student not found!";
+        }
+
+      } catch (err) {
+        console.error(err);
+        error.textContent = "Server error. Try again later.";
+      }
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  text-align: center;
+}
+
+
+.header {
+  background: white;
+  color: #004799;
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 60px;
+  margin-right: 10px;
+}
+
+
+.login-box {
+  background-color: rgba(0, 71, 153, 0.85);
+  width: 473px;         
+  height: 300px;         
+  margin: 120px auto;
+  border-radius: 25px;
+  padding: 50px 40px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+
+#clubName {
+  font-size: 32px;       
+  font-weight: 700;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+
+input[type="password"] {
+  width: 85%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 17px;
+}
+
+
+button {
+  background-color: white;
+  color: #004799;
+  border: none;
+  padding: 16px 50px;     
+  margin-top: 35px;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #004799;
+  color: white;
+  transform: translateY(-3px);
+}
+
+
+.error {
+  color: #ffb3b3;
+  margin-top: 15px;
+  font-size: 16px;
+}

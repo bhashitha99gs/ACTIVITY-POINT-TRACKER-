@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Layout */
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Blue top section */
+.top-section {
+  background-color: #0047AB;
+  color: white;
+  text-align: center;
+  padding: 40px 0;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 0 0 20px 20px;
+}
+
+/* White bottom section */
+.bottom-section {
+  background-color: white;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+/* Form container */
+.form-container {
+  width: 1200px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 30px;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0047AB;
+  
+}
+
+/* Input fields and labels */
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: bold;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0047AB;
+  color: white;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #00347f;
+}
+
+
